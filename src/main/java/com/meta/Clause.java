@@ -9,6 +9,10 @@ public class Clause {
         this.literals = literals;
     }
 
+    public HashSet<Integer> getLiterals() {
+        return literals;
+    }
+
     public boolean satisfy(Solution solution) {
         for (int literal :
                 literals)
