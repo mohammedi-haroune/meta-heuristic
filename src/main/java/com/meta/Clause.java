@@ -20,4 +20,11 @@ public class Clause {
 
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "Clause{" +
+                "literals=" + literals +
+                '}';
+    }
 }
