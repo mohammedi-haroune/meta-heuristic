@@ -1,1 +1,5 @@
-algo_input = AStar1_benchmarks/uf75-325/uf75-04.cnf pr = 0.9754601226993865
+algo_input = BFS_benchmarks/uuf75-325/uuf75-01.cnf pr = 0.4123076923076923
+algo_input = BFS_benchmarks/uuf75-325/uuf75-04.cnf pr = 0.48615384615384616
+algo_input = BFS_benchmarks/uuf75-325/uuf75-05.cnf pr = 0.47692307692307695
+algo_input = BFS_benchmarks/uuf75-325/uuf75-03.cnf pr = 0.44
+algo_input = BFS_benchmarks/uuf75-325/uuf75-02.cnf pr = 0.4584615384615385

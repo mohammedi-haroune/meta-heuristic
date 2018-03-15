@@ -13,6 +13,10 @@ public class Solution {
         this.literals = new HashSet<>(literals);
     }
 
+    public Solution() {
+        this(new HashSet<>());
+    }
+
     private Set<Integer> nextVars(HashSet<Integer> varialbes) {
         return varialbes
                 .stream()

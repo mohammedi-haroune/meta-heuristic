@@ -8,12 +8,12 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.stream.Collectors;
 
-public class IntanceSAT {
+public class InstanceSAT {
     public Clause[] clauses;
-    public Solution last;
+    public Solution last = new Solution();
     public HashSet<Integer> variables = new LinkedHashSet<>();
 
-    private IntanceSAT(Clause[] clauses) {
+    private InstanceSAT(Clause[] clauses) {
         this.clauses = clauses;
         for (Clause clause : clauses) {
             variables.addAll(clause.getLiterals().stream().map(Math::abs).collect(Collectors.toSet()));
@@ -32,8 +32,12 @@ public class IntanceSAT {
         return Arrays.stream(clauses).filter(clause -> clause.satisfy(solution)).count();
     }
 
-    public static IntanceSAT fromCNF(String file) throws IOException {
-        return new IntanceSAT(Files
+    public double tauxSatisfy(Solution solution) {
+        return (double) numSatisfy(solution) / (double) clauses.length;
+    }
+
+    public static InstanceSAT fromCNF(String file) throws IOException {
+        return new InstanceSAT(Files
                 .readAllLines(Paths.get(file))
                 .stream()
                 .filter(line -> !line.startsWith("c") && !line.startsWith("p")  && !line.startsWith("%") && !line.startsWith("0"))
@@ -50,7 +54,7 @@ public class IntanceSAT {
 
     @Override
     public String toString() {
-        return "IntanceSAT{" +
+        return "InstanceSAT{" +
                 "clauses=" + Arrays.toString(clauses) +
                 ", variables=" + variables +
                 '}';

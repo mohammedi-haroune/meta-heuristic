@@ -4,33 +4,31 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String args[]) throws IOException {
-        Algorithm[] algorithms = {new DFS(), new BFS(), new AStar1()};
+        Algorithm[] algorithms = {new BFS()};
         List<Path> inputs = Files
                 .walk(Paths.get("benchmarks/"))
                 .filter(path -> !path.toFile().isDirectory())
-                .limit(1)
                 .collect(Collectors.toList());
 
-        long timeout = 5 * 60 * 1000;
+        long timeout = 10 * 60 * 1000;
 
         System.out.println("inputs = " + inputs);
 
-        //HashMap<String, IntanceSAT> problems = new HashMap<>();
+        //HashMap<String, InstanceSAT> problems = new HashMap<>();
 
         for (Algorithm algorithm : algorithms) {
             for (Path input : inputs) {
-                IntanceSAT intanceSAT = IntanceSAT.fromCNF(input.toString());
-                //problems.put(algorithm.name + "_" + input.toString(), intanceSAT);
-                algorithm.solve(intanceSAT, timeout);
+                InstanceSAT instanceSAT = InstanceSAT.fromCNF(input.toString());
+                //problems.put(algorithm.name + "_" + input.toString(), instanceSAT);
+                algorithm.solve(instanceSAT, timeout);
                 System.out.print("algo_input = " + algorithm.name + "_" + input.toString());
-                System.out.println(" pr = " + (double) intanceSAT.numSatisfy(intanceSAT.last) /
-                        (double) intanceSAT.clauses.length);
+                System.out.println(" pr = " + (double) instanceSAT.numSatisfy(instanceSAT.last) /
+                        (double) instanceSAT.clauses.length);
                 System.gc();
             }
         }
